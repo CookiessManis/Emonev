@@ -1,0 +1,209 @@
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+}
+
+.navbar-brand {
+  font-size: 35px;
+}
+
+.nav-link {
+  font-size: 20px;
+  color: #808080;
+  padding: 5px;
+}
+
+/* halaman dashboard */
+.card-container {
+  padding-top: 64px;
+  padding-left: 15px;
+}
+.card {
+  width: 300px;
+  height: 170px;
+  border-radius: 20px;
+}
+
+.card-text-container {
+  padding-top: 17px;
+}
+.card-text {
+  font-size: 25px;
+}
+.chart-js {
+  padding-top: 35px;
+}
+.dropstart {
+  cursor: pointer;
+}
+
+/* halaman login */
+
+.logo-login {
+  padding-top: 7px;
+  text-align: center;
+}
+
+.card-login {
+  width: 550px;
+  height: 440px;
+}
+
+.card-title {
+  text-align: center;
+}
+.card-login-h1 {
+  font-size: 32px;
+  padding-top: 32px;
+}
+
+.card-login-p {
+  font-size: 25px;
+}
+
+.card-login-text-p {
+  font-size: 20px;
+  color: #808080;
+  padding-top: 44px;
+  text-align: center;
+}
+
+.btn-login {
+  width: 245px;
+  height: 40px;
+}
+
+.button-login {
+  padding-top: 20px;
+}
+
+/* bagian halaman Kegiatan */
+.back-container {
+  padding-top: 47px;
+  padding-left: 36px;
+}
+.button-kegiatan {
+  border-radius: 20px;
+}
+.back-sizing {
+  width: 350px;
+  background-color: #d9d9d9;
+  height: 60px;
+  border-radius: 63px;
+}
+.btn-tambahKegiatan {
+  padding-right: 36px;
+  height: 60px;
+  padding-top: 20px;
+  border-radius: 20px;
+}
+
+.btn-tmbhKeg {
+  border-radius: 10px;
+}
+
+.back-texting {
+  font-size: 20px;
+  color: black;
+}
+
+.card-kegiatan-container {
+  padding-top: 44px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.card-kegiatan {
+  width: auto;
+  height: auto;
+}
+.card-table-texting {
+  font-size: 30px;
+  padding-left: 41px;
+}
+
+.search-container {
+  width: 400px;
+}
+
+/* halaman inputan anggaran */
+.anggaran-select {
+  padding-right: 37px;
+  padding-top: 10px;
+  width: 190px;
+}
+.anggaran-h1 {
+  font-size: 50px;
+  letter-spacing: 5px;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.anggaran-p {
+  font-size: 30px;
+  text-align: center;
+}
+
+.anggaran-value {
+  font-size: 48px;
+  text-align: center;
+  padding-top: 42px;
+}
+
+.dropdown-container {
+  padding-right: 41px;
+}
+
+.program-kerja {
+  font-size: 25px;
+}
+
+#myTable {
+  font-size: 20px;
+}
+
+.button-anggaran {
+  width: 20px;
+}
+
+.card-container-seksi {
+  width: 245px;
+  border-radius: 10px;
+}
+
+.logo-seksi {
+  padding-top: 14px;
+}
+.text-seksi {
+  font-size: 20px;
+}
+
+.card-seksi {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.h5-seksi {
+  font-size: 14px;
+  padding-top: 4px;
+}
+.myTable {
+  cursor: pointer;
+}
+
+.text-anggaran {
+  font-size: 15px;
+  color: red;
+  text-decoration: underline;
+  padding-top: 20px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.anggaran-container {
+  padding-top: 10px;
+}
+
+.h4-programKerja {
+  font-size: 35px;
+}
