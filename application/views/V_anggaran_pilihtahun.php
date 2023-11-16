@@ -9,6 +9,8 @@
           </div>
         </a>
       </div>
+			<?php if($session_user->status == 2)  { ?>
+
 			<div class="btn-tambahKegiatan">
 				<a href="<?= base_url('index.php/C_anggaran') ?>">
 					<button
@@ -18,6 +20,8 @@
         </button>
 			</a>
      </div>
+			 <?php } ?>
+
     </div>
 
      

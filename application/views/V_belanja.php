@@ -380,15 +380,15 @@ foreach ($belanja as $b) { ?>
                     <tbody class="align-middle" id="myTable">
                         <?php foreach ($belanja as $ba) { ?>
                             <?php
-                            $a = number_format(($ba->realisasi / $ba->npd) * 100); ?>
+                            $a = number_format(($ba->realisasi / $ba->target) * 100); ?>
                             <tr>
                                 <td><?= $ba->no_rek; ?></td>
                                 <td><?= $ba->rincian; ?></td>
-                                <td><?= $ba->pagu; ?></td>
-                                <td><?= $ba->npd; ?></td>
-                                <td><?= $ba->realisasi; ?></td>
+                                <td>Rp.<?= number_format($ba->pagu,2); ?></td>
+                                <td>Rp.<?= number_format($ba->npd,2) ?></td>
+                                <td>Rp.<?= number_format($ba->realisasi,2) ?></td>
                                 <td><?= $a; ?>%</td>
-                                <td><?= $ba->target; ?></td>
+                                <td>Rp.<?= number_format($ba->target,2) ?></td>
                                 <td>
                                 <?php if ($ba->username == $session_user->username OR $session_user->status == 2) {?>
                                         <button 

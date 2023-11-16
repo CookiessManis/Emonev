@@ -50,7 +50,14 @@
               alt=""
             />
             <ul class="dropdown-menu">
-              <li><a href="<?php echo base_url('index.php/C_login/logout')?>" class="dropdown-item dropdown-footer" >loguot</a></li>
+              <li>
+							 <p
+                  onclick="location.href='<?php echo base_url('index.php/C_login/logout')?>'"
+                  class="dropdown-item-text dropdown-start"
+                >
+                  Logout
+                </p>	
+							</li>
             </ul>
           </div>
         </div>
