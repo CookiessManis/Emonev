@@ -1,8 +1,8 @@
 
 <?php if ($belanja2 == null) {?>
 <!-- button kembali ke halaman utama -->
-<div class="back-container d-flex justify-content-between">
-    <div class="back-sizing">
+<div class="back-container d-lg-flex justify-content-between">
+    <div class="back-sizing ">
         <a href="<?= base_url('index.php/C_dashboard/pilihtahun/'.$value->id_anggaran); ?>" class="text-decoration-none">
             <div class="d-flex justify-content-center">
                 <img src="<?= base_url('assets/img/arrow-back.svg') ?>" alt="" />
@@ -25,11 +25,11 @@
 <div class="card-kegiatan-container">
     <div class="card card-kegiatan">
         <div class="card-body">
-            <div class="d-flex justify-content-between">
+            <div class="d-lg-flex justify-content-between">
                 <p class="card-table-texting fw-bold align-middle">Belanja</p>
                 <!-- search -->
                 <div class="d-flex">
-                <div class="pe-5">
+                <div class="pe-lg-5 py-3 py-lg-0">
                 <select class="form-select border border-black">
                   <option class="text-center">pilih bulan</option>
                   <?php foreach ($bulan as $b) { ?>

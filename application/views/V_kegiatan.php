@@ -1,7 +1,7 @@
-   
+
    <?php if ($kegiatan2 == null) {?>
      <!-- button kembali ke halaman utama -->
-     <div class="back-container d-flex justify-content-between">
+     <div class="back-container d-lg-flex justify-content-between">
       <div class="back-sizing">
         <a href="<?= base_url('index.php/C_dashboard/pilihtahun/'.$value->id_anggaran); ?>" class="text-decoration-none">
           <div class="d-flex justify-content-center">
@@ -20,14 +20,13 @@
         </button>
       </div>
     </div>
-
     <!-- card table -->
     <div class="card-kegiatan-container">
       <div class="card card-kegiatan">
         <div class="card-body">
-          <div class="d-flex justify-content-between">
+          <div class="d-lg-flex justify-content-between">
             <p class="card-table-texting fw-bold align-middle">Sub Kegiatan tahun <?= $anggarank->tahun; ?> </p>
-            <div class="d-flex">
+            <div class="d-lg-flex justify-content-between">
               <div class="pe-5">
                 <select class="form-select border border-black" >
                   <option class="text-center">pilih seksi</option>
@@ -143,6 +142,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Isi Nomer Sub Kegiatan"
+								required
               />
             </div>
             <div class="mb-3">
@@ -152,6 +152,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Isi Sub Kegiatan "
+								required
               />
               <input  
                 hidden  
@@ -159,6 +160,7 @@
                 name="username" 
                 class="form-control"   
                 value="<?= $session_user->username; ?>"
+								
                >
               
                <input 
@@ -218,6 +220,7 @@
               name="id_kegiatan"
               value="<?= $k->id_kegiatan; ?>"
               class="form-control"
+
               >
               <input type="hidden"
               name="id_anggaran"
@@ -230,6 +233,7 @@
                 value="<?= $k->no_kegiatan; ?>"
                 class="form-control"
                 placeholder="Isi Nomer Sub Kegiatan"
+								required
               />
             </div>
             <div class="mb-3">
@@ -240,6 +244,7 @@
                 value="<?= $k->sub_kegiatan; ?>"
                 class="form-control"
                 placeholder="Isi Sub Kegiatan"
+								required
               />
             </div>
           </div>
@@ -308,7 +313,7 @@
 
    <?php }else{ ?>
    <!-- button kembali ke halaman utama -->
-    <div class="back-container d-flex justify-content-between">
+    <div class="back-container d-lg-flex justify-content-between">
       <div class="back-sizing">
         <a href="<?= base_url('index.php/C_dashboard/pilihtahun/'.$value->id_anggaran); ?>" class="text-decoration-none">
           <div class="d-flex justify-content-center">
@@ -338,11 +343,11 @@
     <div class="card-kegiatan-container">
       <div class="card card-kegiatan">
         <div class="card-body">
-          <div class="d-flex justify-content-between">
+          <div class="d-lg-flex justify-content-between">
             <p class="card-table-texting fw-bold align-middle">Sub Kegiatan tahun <?= $anggarank->tahun; ?> </p>
-            <div class="d-flex">
+            <div class="d-lg-flex justify-content-lg-between">
               <div class="pe-5">
-                <select class="form-select border border-black" id="seksi">
+                <select class="seksi-pilih form-select border border-black" id="seksi">
                   <option class="text-center">pilih seksi</option>
                   <?php foreach ($user as $u) { ?>
                     <option value="<?= $u->username; ?>"><?= $u->username; ?></option>

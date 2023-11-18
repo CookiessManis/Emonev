@@ -41,7 +41,6 @@ body {
 
 .logo-login {
 	padding-top: 7px;
-	text-align: center;
 }
 
 .card-login {
@@ -124,6 +123,15 @@ body {
 
 .search-container {
 	width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+	.search-container {
+		width: auto;
+	}
+	.seksi-pilih {
+		width: auto;
+	}
 }
 
 /* halaman inputan anggaran */

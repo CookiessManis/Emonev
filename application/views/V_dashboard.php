@@ -21,7 +21,7 @@
       <!-- Card -->
     <div class="card-container container-fluid">
       <div class="row mx-auto mx-xl-auto mx-xxl-auto ps-xxl-5">
-        <div class="col-lg-3 col-xl-3">
+        <div class="col-lg-3 col-12 gy-3 col-xl-3">
           <div class="card shadow">
             <div class="card-body">
               <div class="card-text-container">
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-xl-3">
+        <div class="col-lg-3 col-12 gy-3 col-xl-3">
           <div class="card shadow">
             <div class="card-body">
               <div class="card-text-container">
@@ -70,7 +70,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-xl-3">
+        <div class="col-lg-3 col-12 gy-3 col-xl-3">
           <div class="card shadow">
             <div class="card-body">
               <div class="card-text-container">
@@ -95,7 +95,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-xl-3">
+        <div class="col-lg-3 col-12 gy-3 col-xl-3">
           <div class="card shadow">
             <div class="card-body">
               <div class="card-text-container">

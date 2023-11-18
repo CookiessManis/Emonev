@@ -14,7 +14,6 @@ echo '<div class="w-50 mx-auto py-3">
 	<div class="bg-warning rounded alert alert-warning alert-dismissible fade show">
 		<span class="text-center text-gray fw-semibold ">✅ ';
 		echo $this->session->flashdata('pesan');
-		echo ' Silahkan pilih tahun untuk melihat hasilnya';
 echo '</span>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
@@ -25,7 +24,7 @@ echo '</span>
 
 
     <!-- button kembali ke halaman utama -->
-    <div class="back-container d-flex justify-content-between">
+    <div class="back-container d-lg-flex justify-content-between ">
       <div class="back-sizing">
         <a href="<?= base_url('index.php/C_dashboard')?>" class="text-decoration-none">
           <div class="d-flex justify-content-center">
@@ -143,12 +142,12 @@ echo '</span>
           <div class="modal-body">
 						<div class="mb-3">
 							<label for="" class="fw-medium">Tahun Anggaran</label>
-							<input type="text" class="form-control" min="1900" maxlength="4" max="2099" step="1" placeholder="2002" name="tahun">
+							<input type="text" class="form-control" min="1900" maxlength="4" max="2099" step="1" placeholder="2002" name="tahun" required>
 							<?= form_error('tahun') ?>
             </div>
             <div class="mb-3">
 							<label for="" class="fw-medium">Jumlah Anggaran</label>
-              <input type="Number" class="form-control" placeholder="200000" name="jumlah"/>
+              <input type="Number" class="form-control" placeholder="200000" name="jumlah" required/>
             </div>
           </div>
           <div class="modal-footer">

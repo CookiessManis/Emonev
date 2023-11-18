@@ -24,19 +24,30 @@
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/src/style.css') ?>" />
   </head>
-  <body>
-  <?= $this->session->flashdata('pesan'); ?>
+  <body class="overflow-hidden">
+		
+  <?php
+		if($this->session->flashdata('pesan')){
+echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-warning rounded alert alert-warning alert-dismissible fade show">
+		<span class="text-center text-gray fw-semibold ">⚠';
+		echo $this->session->flashdata('pesan');
+echo '</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>';
+}
+	?>
     <!-- logo -->
-    <div class="logo-login">
-      <img src="<?= base_url('assets/img/logo.svg') ?>" width="90px" alt="" />
+    <div class="logo-login text-center d-md-block" hidden>
+      <img src="<?= base_url('assets/img/logo.svg') ?>" width="90px" alt="" class="mx-auto" />
     </div>
 
     <!-- card login -->
-    <section class="py-3">
-      <div class="container">
+    <section class="pt-5">
         <div class="row">
           <div class="col-12 col-lg-12 col-xl-12">
-            <div class="card card-login mx-auto border border-dark">
+            <div class="card card-login mx-auto border border-dark shadow">
               <h1 class="card-login-h1 fw-semibold text-center">
                 Selamat Datang di Emonev
               </h1>
@@ -84,8 +95,8 @@
             </div>
           </div>
         </div>
-      </div>
     </section>
+
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

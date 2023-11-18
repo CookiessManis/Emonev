@@ -34,7 +34,7 @@ if ($this->session->flashdata('validation_errors')){
    
 	 
 	 <!-- button kembali ke halaman utama -->
-    <div class="back-container d-flex justify-content-between">
+    <div class="back-container d-lg-flex justify-content-between">
       <div class="back-sizing">
         <a href="<?= base_url('index.php/C_dashboard/pilihtahun/'.$value->id_anggaran)?>" class="text-decoration-none">
           <div class="d-flex justify-content-center">

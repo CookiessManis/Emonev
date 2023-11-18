@@ -23,11 +23,7 @@ class C_login extends CI_Controller
             $cek = $this->M_login->login($username, $password);
 
             if ($cek == false) {
-                $this->session->set_flashdata('pesan',  '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Username atau Password salah!
-                <button type="button" class="close" data-dismiss="alert" aria-label="close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
+                $this->session->set_flashdata('pesan', 'Login Tidak berhasil');
                 redirect('index.php/C_login');
             } else {
                 $this->session->set_userdata('username', $cek->username);
