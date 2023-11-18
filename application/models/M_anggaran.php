@@ -13,6 +13,13 @@ class M_anggaran extends CI_Model
         $this->db->order_by('tahun', 'desc');
         return $this->db->get()->result();
     }
+    public function get()
+    {
+        $this->db->select('anggaran.tahun, anggaran.id_anggaran');
+        $this->db->from('anggaran');
+        $this->db->order_by('tahun', 'desc');
+        return $this->db->get()->row_array();
+    }
 
     // // buat return redirect
     // public function anggaran()

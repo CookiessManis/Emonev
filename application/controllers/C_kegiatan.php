@@ -20,7 +20,7 @@ class C_kegiatan extends CI_Controller
   {
     $data  = array(
       'session_user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
-      'title' => 'Belanja',
+      'title' => 'Halaman Kegiatan',
       'anggarank' => $this->M_anggaran->get_anggaran_pt($id_anggaran),
       'value' => $this->M_header->get_header($id_anggaran),
       'kegiatan' => $this->M_kegiatan->get($id_anggaran),

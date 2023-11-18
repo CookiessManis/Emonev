@@ -142,15 +142,16 @@ class C_belanja extends CI_Controller
 
         foreach ($data as $ba) { 
             
-            $a = number_format(($ba->realisasi / $ba->npd) * 100); ?>
+            $a = number_format(($ba->realisasi / $ba->target) * 100); ?>
             <tr>
+
                 <td><?= $ba->no_rek; ?></td>
-                <td><?= $ba->rincian; ?></td>
-                <td><?= $ba->pagu; ?></td>
-                <td><?= $ba->npd; ?></td>
-                <td><?= $ba->realisasi; ?></td>
-                <td><?= $a; ?>%</td>
-                <td><?= $ba->target; ?></td>
+                                <td><?= $ba->rincian; ?></td>
+                                <td>Rp.<?= number_format($ba->pagu,2); ?></td>
+                                <td>Rp.<?= number_format($ba->npd,2) ?></td>
+                                <td>Rp.<?= number_format($ba->realisasi,2) ?></td>
+                                <td><?= $a; ?>%</td>
+                                <td>Rp.<?= number_format($ba->target,2) ?></td>
                 <td>
               <?php if ($ba->username == $username OR $status == 2) {?> 
               <button 

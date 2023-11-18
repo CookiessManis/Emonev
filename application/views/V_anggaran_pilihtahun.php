@@ -1,5 +1,39 @@
 
-    <!-- button kembali ke halaman utama -->
+<?php
+
+
+
+
+//  flashdata berhasil
+if($this->session->flashdata('pesan')){
+echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-warning rounded alert alert-warning alert-dismissible fade show">
+		<span class="text-center text-gray fw-semibold ">✅ ';
+		echo $this->session->flashdata('pesan');
+		echo ' Silahkan pilih tahun untuk melihat hasilnya';
+echo '</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>';
+}
+
+	
+if ($this->session->flashdata('validation_errors')){
+	echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-danger rounded alert alert-warning alert-dismissible fade show">
+	<span class="text-center text-white fw-semibold ">⚠ ';
+	 echo $this->session->flashdata('validation_errors');
+	echo '</span>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	</div>';
+}
+
+?>
+
+   
+	 
+	 <!-- button kembali ke halaman utama -->
     <div class="back-container d-flex justify-content-between">
       <div class="back-sizing">
         <a href="<?= base_url('index.php/C_dashboard/pilihtahun/'.$value->id_anggaran)?>" class="text-decoration-none">

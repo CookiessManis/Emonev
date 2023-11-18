@@ -328,6 +328,12 @@
       </div>
     </div>
 
+		<div class="px-5 pt-4 ">
+			<h4 class='seksi fw-bold align-middle' >
+				SEKSI : <?= $session_user->username ?>
+			</h4>
+		</div>
+
     <!-- card table -->
     <div class="card-kegiatan-container">
       <div class="card card-kegiatan">
@@ -390,11 +396,13 @@
               <tbody class="align-middle myTable" id="myTable">
               <?php foreach ($kegiatan as $k) { ?>
                 <tr class="text-center">
+									<?php if($k->username == $session_user->username) { ?>
                   <!-- untuk ke halaman belanja ubah link di onklik -->
                   <td onclick="location.href='<?= base_url('index.php/C_belanja/index/'.$k->id_kegiatan) ?>'" class="td-pointer">
                     <?= $k->no_kegiatan; ?>
                   </td>
                   <td onclick="location.href='<?= base_url('index.php/C_belanja/index/'.$k->id_kegiatan) ?>'" colspan="4"><?= $k->sub_kegiatan; ?></td>
+								
                   <?php if ($k->username == $session_user->username OR $session_user->status ==  2 ) {?>
                     <td>
                     <button
@@ -411,7 +419,9 @@
                     >
                       Hapus
                     </button>
+										<?php } ?>
                   </td>
+
                  <?php }else{ ?>
                     <td>
                     
