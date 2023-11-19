@@ -58,15 +58,66 @@ class M_login extends CI_Model
     }
   
 
+	// public function get_chart($id_anggaran)
+	// {
+	// 	$this->db->select('*,SUM(belanja.realisasi) as total_realisasi,SUM(belanja.target) as total_target,SUM(belanja.npd) as total_npd,SUM(belanja.pagu) as total_pagu');
+	// 	$this->db->from('belanja');
+	// 	$this->db->join('anggaran','anggaran.id_anggaran = belanja.id_anggaran');
+	// 	$this->db->join('bulan','bulan.id_bulan = belanja.id_bulan');
+	// 	$this->db->where('belanja.id_anggaran',$id_anggaran);
+	// 	$this->db->group_by('belanja.id_belanja');
+	// 	return $this->db->get()->result();
+	// }
+
 	public function get_chart($id_anggaran)
 	{
-		$this->db->select('*,SUM(belanja.realisasi) as total_realisasi,SUM(belanja.target) as total_target,SUM(belanja.npd) as total_npd,SUM(belanja.pagu) as total_pagu');
+		$this->db->select('*,SUM(belanja.realisasi) as total_realisasi,SUM(belanja.target) as total_target,SUM(belanja.npd) as total_npd,SUM(belanja.pagu) as total_pagu,MIN(sisa_anggaran) as latest_sisa_anggaran');
 		$this->db->from('belanja');
-		$this->db->join('anggaran','anggaran.id_anggaran = belanja.id_anggaran');
+		$this->db->join('anggaran', 'anggaran.id_anggaran = belanja.id_ang');
 		$this->db->join('bulan','bulan.id_bulan = belanja.id_bulan');
-		$this->db->where('belanja.id_anggaran',$id_anggaran);
-		$this->db->group_by('belanja.id_belanja');
+		$this->db->where('belanja.id_ang',$id_anggaran);
+		$this->db->group_by('bulan.id_bulan');
 		return $this->db->get()->result();
 	}
+
+	// sisa anggaran
+	public function get($id_anggaran){
+        $this->db->select_sum('sisa_anggaran');
+        $this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        return $this->db->get('')->row();
+    }
+	
+	public function anggaran($id_anggaran){
+        $this->db->select('belanja.id_anggaran');
+        $this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        return $this->db->get('')->row();
+    }
+
+	// target
+	public function target($id_anggaran)
+	{
+		$this->db->select_sum('target');
+		$this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        return $this->db->get('')->row();
+	}
+	// realisasi
+	public function realisasi($id_anggaran)
+	{
+		$this->db->select_sum('realisasi');
+		$this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        return $this->db->get('')->row();
+	}
+	
 
 }

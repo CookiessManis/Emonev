@@ -36,7 +36,11 @@ class C_dashboard extends CI_Controller
         'value' => $this->M_header->get_header($id_anggaran),
         'dashboard_row' => $this->M_login->get_dashboard_row($id_anggaran),
         'jumlahrealisasi' => $this->M_login->get_sum_realisasi($id_anggaran),
-				'get_chart' => $this->M_login->get_chart($id_anggaran)
+				'get_chart' => $this->M_login->get_chart($id_anggaran),
+				'get' => $this->M_login->get($id_anggaran),
+				'target' => $this->M_login->target($id_anggaran),
+				'realisasi' => $this->M_login->realisasi($id_anggaran),
+				'anggaran' => $this->M_login->anggaran($id_anggaran)
       );
       $this->load->view('templates/Header', $data);
       $this->load->view('V_dashboard_pilihtahun', $data);

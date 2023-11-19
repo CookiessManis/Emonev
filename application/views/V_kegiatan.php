@@ -31,7 +31,7 @@
                 <select class="form-select border border-black" >
                   <option class="text-center">pilih seksi</option>
                   <?php foreach ($user as $u) { ?>
-                    <option value="<?= $u->username; ?>"><?= $u->username; ?></option>
+                    <option selected value="<?= $u->username; ?>"><?= $u->username; ?></option>
                  <?php  } ?>
                 </select>
               </div>

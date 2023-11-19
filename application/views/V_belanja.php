@@ -183,7 +183,14 @@
                         name="username"
                         id=""
                         value="<?= $session_user->username; ?>">
-                        <input type="hidden" name="id_anggaran" value="<?= $kegiatanb->id_anggaran; ?>">
+						
+						<select name="id_anggaran" id="">
+							<?php foreach($anggaran as $value) { ?>
+								<option value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
+							<?php }?>
+						</select>
+
+						<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
                       
                     </div>
                     <div class="mb-3">
@@ -377,11 +384,13 @@ foreach ($belanja as $b) { ?>
                         </tr>
                     </thead>
 
+                    
                     <tbody class="align-middle" id="myTable">
                         <?php foreach ($belanja as $ba) { ?>
                             <?php
                             $a = number_format(($ba->realisasi / $ba->target) * 100); ?>
                             <tr>
+
                                 <td><?= $ba->no_rek; ?></td>
                                 <td><?= $ba->rincian; ?></td>
                                 <td>Rp.<?= number_format($ba->pagu,2); ?></td>
@@ -486,8 +495,14 @@ foreach ($belanja as $b) { ?>
                         name="username"
                         id=""
                         value="<?= $session_user->username; ?>">
-                        <input type="hidden" name="id_anggaran" value="<?= $kegiatanb->id_anggaran; ?>">
-                      
+
+                        <select name="id_anggaran" id="">
+							<?php foreach($anggaran as $value) { ?>
+								<option selected value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
+							<?php }?>
+						</select>
+
+							<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
                     </div>
                     <div class="mb-3">
                     <label for="">Bulan</label>
@@ -515,8 +530,8 @@ foreach ($belanja as $b) { ?>
                 <button type="submit" class="button-kegiatan btn btn-primary px-4">
                     Simpan
                 </button>
-                </form>
             </div>
+		</form>
         </div>
     </div>
 </div>

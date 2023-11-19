@@ -34,6 +34,13 @@ class M_belanja extends CI_Model
         $this->db->from('bulan');
         return $this->db->get()->result();
     }
+    public function get_anggaran($id_kegiatan){
+        $this->db->select('*');
+        $this->db->from('kegiatan');
+		$this->db->join('anggaran','kegiatan.id_anggaran = anggaran.id_anggaran');
+		$this->db->where('kegiatan.id_kegiatan',$id_kegiatan);
+        return $this->db->get()->result();
+    }
 
     // public function get_data_by_id($id)
     // {
@@ -42,6 +49,18 @@ class M_belanja extends CI_Model
     //     $this->db->where('belanja.id_belanja', $id);
     //     return $this->db->get()->row();
     // }
+
+
+	// In M_belanja model
+public function get_total_realisasi($id_anggaran)
+{
+    $this->db->select_sum('realisasi');
+    $this->db->from('belanja');
+    $this->db->where('id_anggaran', $id_anggaran);
+    $query = $this->db->get();
+
+    return $query->row()->realisasi;
+}
 
     public function insert_data($data)
     {

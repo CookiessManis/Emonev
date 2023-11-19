@@ -1,26 +1,36 @@
 <!-- anggaran -->
 
-<?php 
+<?php
 $id_anggaran = $value->id_anggaran;
 $data_anggaran = $this->M_login->get_chart($id_anggaran);
+foreach($data_anggaran as $value){
+	echo var_dump($value);
 
-foreach ($data_anggaran as $value) {
-	$sisa_anggaran = $value->jumlah - $value->total_realisasi;
-	$total_deviasi = $value->total_target - $value->total_realisasi;
+	$deviasi = $value->total_target - $value->total_realisasi;
 
-    $date = DateTime::createFromFormat('Y-n', "$value->tahun-$value->id_bulan");
-    $formatted_date = $date->format('M Y');
-    $arr_anggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->jumlah, 'formatted_date' => $formatted_date];
-    $arr_realisasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->total_realisasi, 'formatted_date' => $formatted_date];
-    $arr_devisiasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $total_deviasi, 'formatted_date' => $formatted_date];
-    $arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $sisa_anggaran, 'formatted_date' => $formatted_date];
+	$date = DateTime::createFromFormat('Y-n', "$value->tahun-$value->id_bulan");
+  $formatted_date = $date->format('M Y');
+	$arr_anggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->jumlah, 'formatted_date' => $formatted_date];
+	$arr_realisasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->total_realisasi, 'formatted_date' => $formatted_date];
+	$arr_devisiasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $deviasi, 'formatted_date' => $formatted_date];
+	$arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->latest_sisa_anggaran, 'formatted_date' => $formatted_date];
 
-}	
+	echo $deviasi,'<br>';
+}
 
 ?>
 
-<!-- Realisasi,devisiasi dan sisa anggaran -->
+<!-- deviasi -->
+<?php 
 
+if($anggaran->id_anggaran !== null){
+	$sisa_anggarann = $anggaran->id_anggaran - $realisasi->realisasi;
+} else {
+	"";
+}
+$total_deviasi = $target->target - $realisasi->realisasi;
+$realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 0;
+?>
 
 
  <script>
@@ -28,7 +38,7 @@ foreach ($data_anggaran as $value) {
         var chart = new CanvasJS.Chart("chartContainer", {
           animationEnabled: true,
           title: {
-						<?php foreach ($data_anggaran as $data): ?>
+            <?php foreach ($data_anggaran as $data): ?>
 								text: <?= $data->tahun ?>,
 						<?php endforeach; ?>
           },
@@ -43,61 +53,64 @@ foreach ($data_anggaran as $value) {
             fontSize: 13,
           },
           data: [
-						// anggaran
             {
               type: "splineArea",
               showInLegend: true,
               name: "Anggaran",
-              yValueFormatString: "Rp#,##0",
+              yValueFormatString: "$#,##0",
               xValueFormatString: "MMM YYYY",
               dataPoints: [
-
-							<?php foreach ($arr_anggaran as $data): ?>
+                
+								<?php foreach ($arr_anggaran as $data): ?>
         				{ x: new Date(<?php echo $data['x']; ?>), y: <?php echo $data['y']; ?> },
     					<?php endforeach; ?>
+							
               ],
             },
-						// Realisasi
             {
               type: "splineArea",
               showInLegend: true,
               name: "Realisasi",
-              yValueFormatString: "Rp#,##0",
+              yValueFormatString: "$#,##0",
               dataPoints: [
-               <?php foreach ($arr_realisasi as $data): ?>
+               
+								 <?php foreach ($arr_realisasi as $data): ?>
         				{ x: new Date(<?php echo $data['x']; ?>), y: <?php echo $data['y']; ?> },
     					<?php endforeach; ?>
+
               ],
             },
-						// Devisiasi
             {
               type: "splineArea",
               showInLegend: true,
               name: "Deviasi",
-              yValueFormatString: "Rp#,##0",
+              yValueFormatString: "$#,##0",
               dataPoints: [
-                <?php foreach ($arr_devisiasi as $data): ?>
+                
+								<?php foreach ($arr_devisiasi as $data): ?>
         				{ x: new Date(<?php echo $data['x']; ?>), y: <?php echo $data['y']; ?> },
     					<?php endforeach; ?>
+
               ],
             },
-						// Sisa Anggaran
             {
               type: "splineArea",
               showInLegend: true,
-              yValueFormatString: "Rp#,##0",
+              yValueFormatString: "$#,##0",
               name: "Sisa Anggaran",
               dataPoints: [
-                 <?php foreach ($arr_sisaAnggaran as $data): ?>
+                
+								 <?php foreach ($arr_sisaAnggaran as $data): ?>
         				{ x: new Date(<?php echo $data['x']; ?>), y: <?php echo $data['y']; ?> },
     					<?php endforeach; ?>
+
               ],
             },
           ],
         });
         chart.render();
       };
-    </script>
+  </script>
 </head>
   <body>
   <div class="back-container d-flex justify-content-between">
@@ -208,10 +221,10 @@ foreach ($data_anggaran as $value) {
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. <?= number_format($total_deviasi,2) ?>"
+                  title="Rp. <?= $total_deviasi ?>"
                 >
 
-                Rp. <?= number_format($total_deviasi ,2) ?>
+                Rp. <?= number_format($total_deviasi,2) ?>
                 </p>
                 <?php } ?>
               </div>
@@ -244,9 +257,9 @@ foreach ($data_anggaran as $value) {
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. <?= number_format($sisa_anggaran ,2) ?>"
+                  title="Rp. <?= number_format($sisa_anggarann ,2) ?>"
                 >
-                  Rp <?= number_format($sisa_anggaran ,2) ?>
+                  Rp <?= number_format($sisa_anggarann ,2) ?>
                 </p>
                 <?php } ?>
               </div>
@@ -268,3 +281,5 @@ foreach ($data_anggaran as $value) {
         </div>
       </div>
     </div>
+
+		

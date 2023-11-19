@@ -26,7 +26,8 @@ class C_belanja extends CI_Controller
             'value' => $this->M_belanja->get_header($id_kegiatan),
             'belanja' => $this->M_belanja->get_data($id_kegiatan),
             'belanja2' => $this->M_belanja->get_data2($id_kegiatan),
-            'bulan' => $this->M_belanja->get_data_bulan()
+            'bulan' => $this->M_belanja->get_data_bulan(),
+			'anggaran' => $this->M_belanja->get_anggaran($id_kegiatan)
         );
         $this->load->view('templates/Header', $data);
         $this->load->view('V_belanja', $data);
@@ -51,6 +52,14 @@ class C_belanja extends CI_Controller
             $id_kegiatan        =  $this->input->post('id_kegiatan');
             $username           =  $this->input->post('username');
 			$id_anggaran        = $this->input->post('id_anggaran');
+			$id_ang 			= $this->input->post('id_ang');
+			
+			
+				// Get the sum of realisasi for the given id_anggaran
+			$total_realisasi = $this->M_belanja->get_total_realisasi($id_anggaran);
+
+			// Calculate sisa_anggaran
+			$sisa_anggaran = $id_anggaran -  ($total_realisasi + $realisasi);
 
             $data  = array(
                 'no_rek'        => $no_rek,
@@ -63,6 +72,8 @@ class C_belanja extends CI_Controller
                 'id_kegiatan'   => $id_kegiatan,
                 'username'   => $username,
 				'id_anggaran' => $id_anggaran,
+				'sisa_anggaran' => $sisa_anggaran,
+				'id_ang' => $id_ang,
 
             );
             $this->M_belanja->insert_data($data);
@@ -85,7 +96,7 @@ class C_belanja extends CI_Controller
             $npd                = $this->input->post('npd');
             $realisasi          = $this->input->post('realisasi');
             $target             = $this->input->post('target');
-            $id_bulan              = $this->input->post('id_bulan');
+            $id_bulan           = $this->input->post('id_bulan');
             $id_kegiatan  = $this->input->post('id_kegiatan');
             $data  = array(
                 'id_belanja'    => $id_belanja,
@@ -95,7 +106,7 @@ class C_belanja extends CI_Controller
                 'npd'           => $npd,
                 'realisasi'     => $realisasi,
                 'target'        => $target,
-                'id_bulan'         => $id_bulan,
+                'id_bulan'      => $id_bulan,
                 'id_kegiatan' => $id_kegiatan,
             );
             $this->M_belanja->update($data);
