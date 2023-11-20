@@ -12,7 +12,7 @@ class C_kegiatan extends CI_Controller
     $this->load->model('M_header');
     if(empty($this->session->userdata('username'))){
       $this->session->set_flashdata('pesan', 'Anda belum login !!!');
-      redirect('C_login');
+      redirect('index.php/C_login');
     }
   }
 
@@ -72,7 +72,7 @@ class C_kegiatan extends CI_Controller
   {
     $data['id_kegiatan'] = $id_kegiatan;
     $this->M_kegiatan->delete($data);
-    $this->session->set_flashdata('pesan', 'data program berhasil di hapus');
+    $this->session->set_flashdata('pesan', 'Kegiatan berhasil di hapus');
     redirect($_SERVER['HTTP_REFERER']);
   }
 

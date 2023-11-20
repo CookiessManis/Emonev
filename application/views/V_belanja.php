@@ -1,4 +1,18 @@
+<?php 
 
+//  flashdata berhasil
+if($this->session->flashdata('pesan')){
+echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-warning rounded alert alert-warning alert-dismissible fade show">
+		<span class="text-center text-gray fw-semibold ">✅ ';
+		echo $this->session->flashdata('pesan');
+echo '</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>';
+}
+
+?>
 <?php if ($belanja2 == null) {?>
 <!-- button kembali ke halaman utama -->
 <div class="back-container d-lg-flex justify-content-between">
@@ -265,6 +279,7 @@ foreach ($belanja as $b) { ?>
                             <label for="">Realisasi</label>
                             <input type="text" name="realisasi" class="form-control" placeholder="Isi Realisasi" value="<?= $b->realisasi; ?>" />
                         </div>
+						
                         <input type="hidden" name="id_kegiatan" value="<?= $b->id_kegiatan; ?>" >
                         <div class="mb-3">
                             <label for="">Tanggal</label>
@@ -576,12 +591,21 @@ foreach ($belanja as $b) { ?>
                             <label for="">Realisasi</label>
                             <input type="text" name="realisasi" class="form-control" placeholder="Isi Realisasi" value="<?= $b->realisasi; ?>" />
                         </div>
+						
+						<select name="id_anggaran" id="">
+							<?php foreach($anggaran as $value) { ?>
+								<option selected value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
+							<?php }?>
+						</select>
+
+						<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
+
                         <input type="hidden" name="id_kegiatan" value="<?= $b->id_kegiatan; ?>" >
                         <div class="mb-3">
                             <label for="">Tanggal</label>
                             <select name="id_bulan" class="form-select" aria-label="Default select example">
-                                <option selected value="<?= $b->id_bulan; ?>"><?= $b->id_bulan; ?></option>
-                                <option selected>Pilih Bulan</option>
+                                <option selected value="<?= $b->id_bulan; ?>"><?= $b->nama_bulan; ?></option>
+                                <option >Pilih Bulan</option>
                                     <option value="1">Januari</option>
                                     <option value="2">Febuari</option>
                                     <option value="3">Maret</option>
@@ -596,6 +620,7 @@ foreach ($belanja as $b) { ?>
                                     <option value="12">desember</option>
                             </select>
                         </div>
+						<?= var_dump($b) ?>
                         
                 </div>
                 <div class="modal-footer justify-content-between">

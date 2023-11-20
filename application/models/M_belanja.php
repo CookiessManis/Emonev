@@ -6,9 +6,10 @@ class M_belanja extends CI_Model
 {
     public function get_data($id_kegiatan)
     {
-        $this->db->select('belanja.*, kegiatan.id_kegiatan');
-        $this->db->from('kegiatan');
-        $this->db->join('belanja','kegiatan.id_kegiatan = belanja.id_kegiatan');
+        $this->db->select('belanja.*, kegiatan.id_kegiatan,bulan.nama_bulan');
+        $this->db->from('bulan');
+    $this->db->join('belanja', 'bulan.id_bulan = belanja.id_bulan');
+    $this->db->join('kegiatan', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
         $this->db->where('kegiatan.id_kegiatan', $id_kegiatan);
         return $this->db->get_where()->result();
     }
@@ -28,6 +29,16 @@ class M_belanja extends CI_Model
         $this->db->where('id_kegiatan', $id_kegiatan);
         return $this->db->get()->row();
     }
+
+	public function bulan_id_kegiatan($id_kegiatan)
+{
+    $this->db->select('bulan.nama_bulan');
+    $this->db->from('bulan');
+    $this->db->join('belanja', 'bulan.id_bulan = belanja.id_bulan');
+    $this->db->join('kegiatan', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+    $this->db->where('belanja.id_kegiatan', $id_kegiatan); // Specify the table alias
+    return $this->db->get()->result();
+}
 
     public function get_data_bulan(){
         $this->db->select('bulan.id_bulan, bulan.nama_bulan');

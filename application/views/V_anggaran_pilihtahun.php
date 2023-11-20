@@ -10,7 +10,6 @@ echo '<div class="w-50 mx-auto py-3">
 	<div class="bg-warning rounded alert alert-warning alert-dismissible fade show">
 		<span class="text-center text-gray fw-semibold ">✅ ';
 		echo $this->session->flashdata('pesan');
-		echo ' Silahkan pilih tahun untuk melihat hasilnya';
 echo '</span>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>

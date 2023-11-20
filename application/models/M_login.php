@@ -91,7 +91,7 @@ class M_login extends CI_Model
     }
 	
 	public function anggaran($id_anggaran){
-        $this->db->select('belanja.id_anggaran');
+        $this->db->select('MIN(sisa_anggaran) as latest_sisa_anggaran');
         $this->db->from('anggaran');
         $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
         $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');

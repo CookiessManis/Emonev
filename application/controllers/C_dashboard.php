@@ -11,7 +11,7 @@ class C_dashboard extends CI_Controller
     $this->load->model('M_header');
     if(empty($this->session->userdata('username'))){
       $this->session->set_flashdata('pesan', 'Anda belum login !!!');
-      redirect('C_login');
+      redirect('index.php/C_login');
     }
   }
 

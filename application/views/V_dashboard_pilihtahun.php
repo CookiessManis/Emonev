@@ -23,11 +23,11 @@ foreach($data_anggaran as $value){
 <!-- deviasi -->
 <?php 
 
-if($anggaran->id_anggaran !== null){
-	$sisa_anggarann = $anggaran->id_anggaran - $realisasi->realisasi;
-} else {
-	"";
-}
+// if($anggaran->id_anggaran !== null){
+// 	$sisa_anggarann = $anggaran->id_anggaran - $realisasi->realisasi;
+// } else {
+// 	"";
+// }
 $total_deviasi = $target->target - $realisasi->realisasi;
 $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 0;
 ?>
@@ -39,7 +39,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
           animationEnabled: true,
           title: {
             <?php foreach ($data_anggaran as $data): ?>
-								text: <?= $data->tahun ?>,
+								text: "Anggaran Tahun: <?= $data->tahun ?>",
 						<?php endforeach; ?>
           },
           axisY: {
@@ -242,14 +242,14 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                     <img src="<?= base_url('assets/img/icon-1.svg') ?>" alt="" />
                   </div>
                 </div>
-                <?php if($jumlahrealisasi->realisasi == null) {?>
+                <?php if($anggaran->latest_sisa_anggaran == null) {?>
                   <p
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. <?= number_format($dashboard_row->jumlah,2) ?>"
+                  title="Rp. 0.00"
                 >
-                  Rp <?= number_format($dashboard_row->jumlah,2) ?>
+                  Rp 0.00
                 </p>
                 <?php }else{ ?>
 
@@ -257,9 +257,9 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. <?= number_format($sisa_anggarann ,2) ?>"
+                  title="Rp. <?= number_format($anggaran->latest_sisa_anggaran ,2) ?>"
                 >
-                  Rp <?= number_format($sisa_anggarann ,2) ?>
+                  Rp <?= number_format($anggaran->latest_sisa_anggaran ,2) ?>
                 </p>
                 <?php } ?>
               </div>
