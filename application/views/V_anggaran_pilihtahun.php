@@ -175,11 +175,13 @@ if ($this->session->flashdata('validation_errors')){
           <div class="modal-body">
             <div class="mb-3">
               <label for="" class="fw-medium">Tahun Anggaran</label>
-              <input type="date" class="form-control" placeholder="cth: 2002" />
+              <input type="text" class="form-control" min="1900" maxlength="4" max="2099" step="1" placeholder="2002" name="tahun" required>
+							<?= form_error('tahun') ?>
             </div>
             <div class="mb-3">
               <label for="" class="fw-medium">Jumlah Anggaran</label>
-              <input type="Number" class="form-control" placeholder="200000" />
+              <input type="Number" class="form-control" placeholder="200000" name="jumlah" required/>
+							<?= form_error('tahun') ?>
             </div>
           </div>
           <div class="modal-footer">
@@ -222,10 +224,8 @@ if ($this->session->flashdata('validation_errors')){
               name="id_anggaran"
               >
               <label for="" class="fw-medium">Tahun Anggaran</label>
-              <input type="number" class="form-control" placeholder="cth: 2002"
-              name="tahun"
-              value="<?= $anggarantahunpt->tahun; ?>"
-              />
+							<input type="text" class="form-control" min="1900" maxlength="4" max="2099" step="1" placeholder="2002" name="tahun" value="<?= $anggarantahunpt->tahun; ?>">
+              
             </div>
             <div class="mb-3">
               <label for="" class="fw-medium">Jumlah Anggaran</label>

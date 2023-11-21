@@ -1,10 +1,9 @@
 <!-- anggaran -->
-
 <?php
 $id_anggaran = $value->id_anggaran;
 $data_anggaran = $this->M_login->get_chart($id_anggaran);
+$data_anggaran2 = $this->M_login->realisasi2($id_anggaran);
 foreach($data_anggaran as $value){
-	echo var_dump($value);
 
 	$deviasi = $value->total_target - $value->total_realisasi;
 
@@ -13,9 +12,13 @@ foreach($data_anggaran as $value){
 	$arr_anggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->jumlah, 'formatted_date' => $formatted_date];
 	$arr_realisasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->total_realisasi, 'formatted_date' => $formatted_date];
 	$arr_devisiasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $deviasi, 'formatted_date' => $formatted_date];
-	$arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->latest_sisa_anggaran, 'formatted_date' => $formatted_date];
+  
 
-	echo $deviasi,'<br>';
+    $tes_anggaran = $dashboard_row->jumlah ;
+    foreach ($data_anggaran2 as $value2) {
+    $tes_anggaran -= $value2->realisasi;
+	$arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $tes_anggaran, 'formatted_date' => $formatted_date];
+}
 }
 
 ?>
@@ -242,16 +245,20 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                     <img src="<?= base_url('assets/img/icon-1.svg') ?>" alt="" />
                   </div>
                 </div>
-                <?php if($anggaran->latest_sisa_anggaran == null) {?>
+                <?php if($jumlahrealisasi->realisasi == null) {?>
                   <p
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. 0.00"
+                  title="Rp. <?= number_format($dashboard_row->jumlah,2) ?>"
                 >
-                  Rp 0.00
+                "Rp. <?= number_format($dashboard_row->jumlah,2) ?>"
                 </p>
                 <?php }else{ ?>
+
+                  <?php 
+                    $tes_sisa = $dashboard_row->jumlah - $realisasi->realisasi
+                    ?>
 
                 <p
                   class="card-text fw-bold"
@@ -259,7 +266,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                   data-bs-placement="bottom"
                   title="Rp. <?= number_format($anggaran->latest_sisa_anggaran ,2) ?>"
                 >
-                  Rp <?= number_format($anggaran->latest_sisa_anggaran ,2) ?>
+                  Rp <?= number_format($tes_sisa ,2) ?>
                 </p>
                 <?php } ?>
               </div>

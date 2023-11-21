@@ -11,6 +11,17 @@ echo '</span>
 </div>';
 }
 
+if($this->session->flashdata('gagal')){
+echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-danger rounded alert alert-warning alert-dismissible fade show">
+		<span class="text-center text-white fw-semibold ">❌ ';
+		echo $this->session->flashdata('gagal');
+echo '</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>';
+}
+
 ?>
    <?php if ($kegiatan2 == null) {?>
      <!-- button kembali ke halaman utama -->
@@ -483,7 +494,7 @@ echo '</span>
                 name="no_kegiatan"
                 type="text"
                 class="form-control"
-                placeholder="Isi Nomer Sub Kegiatan"
+                placeholder="Isi Nomer Sub Kegiatan" required
               />
             </div>
             <div class="mb-3">
@@ -492,7 +503,7 @@ echo '</span>
                 name="sub_kegiatan"
                 type="text"
                 class="form-control"
-                placeholder="Isi Sub Kegiatan "
+                placeholder="Isi Sub Kegiatan " required
               />
               <input  
                 hidden  

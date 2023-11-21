@@ -19,6 +19,17 @@ echo '</span>
 	</div>
 </div>';
 }
+// Gagal
+if($this->session->flashdata('gagal')){
+echo '<div class="w-50 mx-auto py-3">
+	<div class="bg-danger rounded alert alert-warning alert-dismissible fade show">
+		<span class="text-center text-white fw-semibold ">❌ ';
+		echo $this->session->flashdata('gagal');
+echo '</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>';
+}
 
 ?>
 

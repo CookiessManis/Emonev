@@ -141,7 +141,7 @@ echo '</span>
                         type="text" 
                         class="form-control"
                         name="no_rek" 
-                        placeholder="Isi Nomer Rekening" 
+                        placeholder="Isi Nomer Rekening"  required
                         />
                     </div>
                     <div class="mb-3">
@@ -150,7 +150,7 @@ echo '</span>
                         type="text"
                         name="rincian" 
                         class="form-control" 
-                        placeholder="Isi Rincian Belanja" 
+                        placeholder="Isi Rincian Belanja"  required
                         />
                     </div>
                     <div class="mb-3">
@@ -159,7 +159,7 @@ echo '</span>
                         type="number"
                         name="pagu" 
                         class="form-control" 
-                        placeholder="Isi Pagu" 
+                        placeholder="Isi Pagu"  required
                         />
                     </div>
                     <div class="mb-3">
@@ -168,7 +168,7 @@ echo '</span>
                         type="number"
                         name="npd" 
                         class="form-control" 
-                        placeholder="Isi NPD" 
+                        placeholder="Isi NPD" required
                         />
                     </div>
                     <div class="mb-3">
@@ -177,7 +177,7 @@ echo '</span>
                         type="number"
                         name="target" 
                         class="form-control" 
-                        placeholder="Isi Target" 
+                        placeholder="Isi Target" required
                         />
                     </div>
                     <div class="mb-3">
@@ -186,7 +186,7 @@ echo '</span>
                         type="number"
                         name="realisasi" 
                         class="form-control" 
-                        placeholder="Isi Realisasi" 
+                        placeholder="Isi Realisasi" required
                         />
                         <input type="hidden"
                         name="id_kegiatan"
@@ -198,13 +198,13 @@ echo '</span>
                         id=""
                         value="<?= $session_user->username; ?>">
 						
-						<select name="id_anggaran" id="">
+						<select name="id_anggaran" hidden id="">
 							<?php foreach($anggaran as $value) { ?>
 								<option value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
 							<?php }?>
 						</select>
 
-						<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
+						<input type="text" hidden value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
                       
                     </div>
                     <div class="mb-3">
@@ -454,7 +454,7 @@ foreach ($belanja as $b) { ?>
                         type="text" 
                         class="form-control"
                         name="no_rek" 
-                        placeholder="Isi Nomer Rekening" 
+                        placeholder="Isi Nomer Rekening" required
                         />
                     </div>
                     <div class="mb-3">
@@ -463,7 +463,7 @@ foreach ($belanja as $b) { ?>
                         type="text"
                         name="rincian" 
                         class="form-control" 
-                        placeholder="Isi Rincian Belanja" 
+                        placeholder="Isi Rincian Belanja" required
                         />
                     </div>
                     <div class="mb-3">
@@ -472,7 +472,7 @@ foreach ($belanja as $b) { ?>
                         type="number"
                         name="pagu" 
                         class="form-control" 
-                        placeholder="Isi Pagu" 
+                        placeholder="Isi Pagu" required
                         />
                     </div>
                     <div class="mb-3">
@@ -481,7 +481,7 @@ foreach ($belanja as $b) { ?>
                         type="number"
                         name="npd" 
                         class="form-control" 
-                        placeholder="Isi NPD" 
+                        placeholder="Isi NPD" required
                         />
                     </div>
                     <div class="mb-3">
@@ -490,7 +490,7 @@ foreach ($belanja as $b) { ?>
                         type="number"
                         name="target" 
                         class="form-control" 
-                        placeholder="Isi Target" 
+                        placeholder="Isi Target" required
                         />
                     </div>
                     <div class="mb-3">
@@ -499,7 +499,7 @@ foreach ($belanja as $b) { ?>
                         type="number"
                         name="realisasi" 
                         class="form-control" 
-                        placeholder="Isi Realisasi" 
+                        placeholder="Isi Realisasi" required
                         />
                         <input type="hidden"
                         name="id_kegiatan"
@@ -511,13 +511,13 @@ foreach ($belanja as $b) { ?>
                         id=""
                         value="<?= $session_user->username; ?>">
 
-                        <select name="id_anggaran" id="">
+                        <select name="id_anggaran" hidden id="">
 							<?php foreach($anggaran as $value) { ?>
 								<option selected value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
 							<?php }?>
 						</select>
 
-							<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
+							<input type="text" hidden value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
                     </div>
                     <div class="mb-3">
                     <label for="">Bulan</label>
@@ -564,6 +564,7 @@ foreach ($belanja as $b) { ?>
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+				<div class="text-danger px-3" style="font-size:15px;">Mengubah Data Akan Merusak Penjumlahan Sisa Anggaran Sebagian</div>
                 <div class="modal-body">
                     <form action="<?= base_url('index.php/C_belanja/update') ?>" method="post">
                         <div class="mb-3">
@@ -592,13 +593,13 @@ foreach ($belanja as $b) { ?>
                             <input type="text" name="realisasi" class="form-control" placeholder="Isi Realisasi" value="<?= $b->realisasi; ?>" />
                         </div>
 						
-						<select name="id_anggaran" id="">
+						<select name="id_anggaran" hidden id="">
 							<?php foreach($anggaran as $value) { ?>
 								<option selected value="<?= $value->jumlah ?>"><?= $value->jumlah ?></option>
 							<?php }?>
 						</select>
 
-						<input type="text" value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
+						<input type="text" hidden value="<?= $kegiatanb->id_anggaran ?>" name="id_ang">
 
                         <input type="hidden" name="id_kegiatan" value="<?= $b->id_kegiatan; ?>" >
                         <div class="mb-3">
@@ -620,7 +621,6 @@ foreach ($belanja as $b) { ?>
                                     <option value="12">desember</option>
                             </select>
                         </div>
-						<?= var_dump($b) ?>
                         
                 </div>
                 <div class="modal-footer justify-content-between">

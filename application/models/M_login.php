@@ -118,6 +118,18 @@ class M_login extends CI_Model
         $this->db->where('anggaran.id_anggaran', $id_anggaran);
         return $this->db->get('')->row();
 	}
+
+    public function realisasi2($id_anggaran)
+	{
+		$this->db->select_sum('realisasi');
+		$this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        $this->db->join('bulan', 'bulan.id_bulan = belanja.id_bulan');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        $this->db->group_by('bulan.id_bulan');
+        return $this->db->get('')->result();
+	}
 	
 
 }

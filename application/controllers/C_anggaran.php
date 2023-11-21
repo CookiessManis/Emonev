@@ -68,6 +68,8 @@ class C_anggaran extends CI_Controller
                 'title' => 'anggaran',
                 'anggarantahun' => $this->M_anggaran->get_anggaran(),
             );
+			$this->session->set_flashdata('gagal', 'Data Anggaran Sudah Ada');
+			redirect('index.php/C_anggaran');
 
             $this->load->view('templates/Header', $data);
             $this->load->view('V_anggaran', $data);
@@ -77,24 +79,24 @@ class C_anggaran extends CI_Controller
 
     public function update_anggaran()
     {
-		// $this->form_validation->set_rules('tahun','Tahun Anggaran','required');
-		// $existing_data = $this->M_anggaran->get();
+		$this->form_validation->set_rules('tahun','Tahun Anggaran','required');
+		$existing_data = $this->M_anggaran->get();
 
-		//  // Check if the submitted value is the same as the existing value
-        // if ($this->input->post('tahun') == $existing_data['tahun']) {
-        //     // The value is the same, no need for validation
-        // } else {
-        //     // The value is different, perform validation
-        //     $this->form_validation->set_rules('tahun', 'tahun Anggaran', 'is_unique[anggaran.tahun]', array(
-        //     'is_unique' => 'Data Tahun Anggaran Tersebut Sudah ada'
-        // ));
-        // }
+		 // Check if the submitted value is the same as the existing value
+        if ($this->input->post('tahun') == $existing_data['tahun']) {
+            // The value is the same, no need for validation
+        } else {
+            // The value is different, perform validation
+            $this->form_validation->set_rules('tahun', 'tahun Anggaran', 'is_unique[anggaran.tahun]', array(
+            'is_unique' => 'Data Tahun Anggaran Tersebut Sudah ada'
+        ));
+        }
 
-		//  if ($this->form_validation->run() == FALSE) {
-        //     // Form validation failed, show error messages or load the form again
-		// 	 $this->session->set_flashdata('validation_errors', 'Tahun Anggaran Sudah Ada');
-        //     redirect($_SERVER['HTTP_REFERER']);
-        // } else {
+		 if ($this->form_validation->run() == FALSE) {
+            // Form validation failed, show error messages or load the form again
+			 $this->session->set_flashdata('validation_errors', 'Tahun Anggaran Sudah Ada');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
         $id_anggaran = $this->input->post('id_anggaran');
         $tahun = $this->input->post('tahun');
         $jumlah = $this->input->post('jumlah');
@@ -103,14 +105,21 @@ class C_anggaran extends CI_Controller
             'tahun' => $tahun,
             'jumlah' => $jumlah,
         );
+		// Update jumlah tanpa harus mengupdate tahun 
+        $this->M_anggaran->update_anggaran($data);
+        $this->session->set_flashdata('pesan', 'Data Anggaran Berhasil Diubah');
+        redirect($_SERVER['HTTP_REFERER']);
+		}
+		$data = array(
+            'id_anggaran' => $id_anggaran,
+            'jumlah' => $jumlah,
+        );
 
 
         $this->M_anggaran->update_anggaran($data);
         $this->session->set_flashdata('pesan', 'Data Anggaran Berhasil Diubah');
         redirect($_SERVER['HTTP_REFERER']);
-		// }
 
-        
     }
 
 

@@ -34,6 +34,18 @@ class C_kegiatan extends CI_Controller
 
   public function insert()
   {
+
+		$this->form_validation->set_rules('no_kegiatan','No Kegiatan','required', array(
+			'required' => "No Kegiatan Wajib Diisi",
+			// 'is_unique' => "No Kegiatan Sudah Ada"
+		));
+		$this->form_validation->set_rules('sub_kegiatan','Sub Kegiatan','required', array(
+			'required' => "Sub Kegiatan Wajib Diisi"
+		));
+		
+
+		if($this->form_validation->run() != false){
+
     $no_kegiatan = $this->input->post('no_kegiatan');
     $sub_kegiatan = $this->input->post('sub_kegiatan');
     $username = $this->input->post('username');
@@ -48,6 +60,11 @@ class C_kegiatan extends CI_Controller
     $this->M_kegiatan->insert($data);
     $this->session->set_flashdata('pesan', 'kegiatan berhasil di tambahan');
     redirect($_SERVER['HTTP_REFERER']);
+		} else {
+			$this->session->set_flashdata('gagal', 'kegiatan Gagal di tambahan');
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
   }
 
   public function update()
