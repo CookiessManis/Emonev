@@ -41,5 +41,6 @@ class M_kegiatan extends CI_Model
     {
         $this->db->where('id_kegiatan', $data['id_kegiatan']);
         $this->db->delete('kegiatan', $data);
+        $this->db->delete('belanja', $data);
     }
 }

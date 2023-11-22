@@ -3,10 +3,11 @@
 $id_anggaran = $value->id_anggaran;
 $data_anggaran = $this->M_login->get_chart($id_anggaran);
 $data_anggaran2 = $this->M_login->realisasi2($id_anggaran);
+$tes_anggaran = $dashboard_row->jumlah ;
+ 
 foreach($data_anggaran as $value){
-
 	$deviasi = $value->total_target - $value->total_realisasi;
-
+$tes_anggaran -= $value->total_realisasi;
 	$date = DateTime::createFromFormat('Y-n', "$value->tahun-$value->id_bulan");
   $formatted_date = $date->format('M Y');
 	$arr_anggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->jumlah, 'formatted_date' => $formatted_date];
@@ -14,12 +15,12 @@ foreach($data_anggaran as $value){
 	$arr_devisiasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $deviasi, 'formatted_date' => $formatted_date];
   
 
-    $tes_anggaran = $dashboard_row->jumlah ;
-    foreach ($data_anggaran2 as $value2) {
-    $tes_anggaran -= $value2->realisasi;
+   
+    var_dump($tes_anggaran);
 	$arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $tes_anggaran, 'formatted_date' => $formatted_date];
+
 }
-}
+
 
 ?>
 
