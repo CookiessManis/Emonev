@@ -26,6 +26,8 @@ class C_kegiatan extends CI_Controller
       'kegiatan' => $this->M_kegiatan->get($id_anggaran),
       'kegiatan2' => $this->M_kegiatan->get2(),
       'user' => $this->M_kegiatan->get_user_result(),
+			'dashboard_row' => $this->M_kegiatan->get_dashboard_row($id_anggaran),
+			'realisasi' => $this->M_kegiatan->realisasi($id_anggaran),
     );
     $this->load->view('templates/Header', $data);
     $this->load->view('V_kegiatan', $data);
@@ -111,10 +113,10 @@ class C_kegiatan extends CI_Controller
       foreach ($data as $value) { ?>
         <tr class="text-center">
         <!-- untuk ke halaman belanja ubah link di onklik -->
-                <td onclick="location.href='<?= base_url('C_belanja/index/'.$value->id_kegiatan) ?>'" class="td-pointer">
+                <td onclick="location.href='<?= base_url('index.php/C_belanja/index/'.$value->id_kegiatan) ?>'" class="td-pointer">
                 <?= $value->no_kegiatan; ?>
                   </td>
-                  <td onclick="location.href='<?= base_url('C_belanja/index/'.$value->id_kegiatan) ?>'" colspan="4"><?= $value->sub_kegiatan; ?></td>
+                  <td onclick="location.href='<?= base_url('index.php/C_belanja/index/'.$value->id_kegiatan) ?>'" colspan="4"><?= $value->sub_kegiatan; ?></td>
                   <td>
                   <?php if ($value->username == $username OR $status == 2) {?> 
                     <button

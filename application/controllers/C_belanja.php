@@ -28,7 +28,9 @@ class C_belanja extends CI_Controller
             'belanja2' => $this->M_belanja->get_data2($id_kegiatan),
             'bulan' => $this->M_belanja->get_data_bulan(),
 			'anggaran' => $this->M_belanja->get_anggaran($id_kegiatan),
-			'bulanKeg' => $this->M_belanja->bulan_id_kegiatan($id_kegiatan)
+			'bulanKeg' => $this->M_belanja->bulan_id_kegiatan($id_kegiatan),
+			'subKegiatan' => $this->M_belanja->get_sub_kegiatan($id_kegiatan),
+			'total_realisasi' => $this->M_belanja->getRealisasiSumByIdAng(),
         );
         $this->load->view('templates/Header', $data);
         $this->load->view('V_belanja', $data);
@@ -37,33 +39,31 @@ class C_belanja extends CI_Controller
 
     public function insert()
     {
-        $this->_rules();
+       $this->form_validation->set_rules('id_bulan', 'ID Bulan', 'required'); // Add any additional rules as needed
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('pesan', 'Belanja gagal di tambahan');
-            redirect($_SERVER['HTTP_REFERER']);
-        } else {
-            $no_rek             = $this->input->post('no_rek');
+	    if ($this->form_validation->run() == false) {
+        $this->session->set_flashdata('error', 'Belanja gagal di tambahan, Bulan Wajib ditambahkan');
+        redirect($_SERVER['HTTP_REFERER']);
+		 } else {
+        // Proceed with the insertion logic
+
+        $no_rek             = $this->input->post('no_rek');
             $rincian            = $this->input->post('rincian');
             $pagu               = $this->input->post('pagu');
             $npd                = $this->input->post('npd');
             $realisasi          = $this->input->post('realisasi');
             $target             = $this->input->post('target');
             $id_bulan           = $this->input->post('id_bulan');
-            $id_kegiatan        =  $this->input->post('id_kegiatan');
-            $username           =  $this->input->post('username');
+            $id_kegiatan        = $this->input->post('id_kegiatan');
+            $username           = $this->input->post('username');
 			$id_anggaran        = $this->input->post('id_anggaran');
 			$id_ang 			= $this->input->post('id_ang');
-			
-			
-				// Get the sum of realisasi for the given id_anggaran
-			$total_realisasi = $this->M_belanja->get_total_realisasi($id_anggaran);
+            $realisasi_fisik    = $this->input->post('realisasi_fisik');
+            $target_fisik       = $this->input->post('target_fisik');
+            $nama_fisik         = $this->input->post('nama_fisik');
+        // ... (other fields)
 
-			// Calculate sisa_anggaran
-			$sisa_anggaran = $id_anggaran -  ($total_realisasi + $realisasi);
-			  
-
-            $data  = array(
+        $data  = array(
                 'no_rek'        => $no_rek,
                 'rincian'       => $rincian,
                 'pagu'          => $pagu,
@@ -74,24 +74,23 @@ class C_belanja extends CI_Controller
                 'id_kegiatan'   => $id_kegiatan,
                 'username'   => $username,
 				'id_anggaran' => $id_anggaran,
-				'sisa_anggaran' => $sisa_anggaran,
+				// 'sisa_anggaran' => $sisa_anggaran,
 				'id_ang' => $id_ang,
+                'target_fisik' => $target_fisik,
+                'realisasi_fisik' => $realisasi_fisik,
+                'nama_fisik' => $nama_fisik,
 
             );
-            $this->M_belanja->insert_data($data);
-            $this->session->set_flashdata('pesan', 'Belanja berhasil di tambahan');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
+
+        $this->M_belanja->insert_data($data);
+        $this->session->set_flashdata('pesan', 'Belanja berhasil di tambahan');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
     }
 
     public function update()
     {
-        $this->_rules();
-
-        if ($this->form_validation->run() == false) {
-            redirect('C_dashboard');
-        } else {
-            $id_belanja         = $this->input->post('id_belanja');
+         $id_belanja         = $this->input->post('id_belanja');
             $no_rek             = $this->input->post('no_rek');
             $rincian            = $this->input->post('rincian');
             $pagu               = $this->input->post('pagu');
@@ -102,12 +101,15 @@ class C_belanja extends CI_Controller
             $id_kegiatan  = $this->input->post('id_kegiatan');
 			$id_anggaran        = $this->input->post('id_anggaran');
 			$id_ang 			= $this->input->post('id_ang');
+            $realisasi_fisik    = $this->input->post('realisasi_fisik');
+            $target_fisik       = $this->input->post('target_fisik');
+            $nama_fisik         = $this->input->post('nama_fisik');
 
 				// Get the sum of realisasi for the given id_anggaran
 			$total_realisasi = $this->M_belanja->get_total_realisasi($id_anggaran);
 
-			// Calculate sisa_anggaran
-			$sisa_anggaran = $id_anggaran -  ($total_realisasi + $realisasi);
+			// // Calculate sisa_anggaran
+			// $sisa_anggaran = $id_anggaran -  ($total_realisasi + $realisasi);
 
 			
             $data  = array(
@@ -121,13 +123,15 @@ class C_belanja extends CI_Controller
                 'id_bulan'      => $id_bulan,
                 'id_kegiatan' => $id_kegiatan,
 				'id_anggaran' => $id_anggaran,
-				'sisa_anggaran' => $sisa_anggaran,
+				// 'sisa_anggaran' => $sisa_anggaran,
 				'id_ang' => $id_ang,
+                'target_fisik' => $target_fisik,
+                'realisasi_fisik' => $realisasi_fisik,
+                'nama_fisik' => $nama_fisik,
             );
             $this->M_belanja->update($data);
             $this->session->set_flashdata('pesan', 'Belanja berhasil di edit');
             redirect($_SERVER['HTTP_REFERER']);
-        }
     }
 
     public function delete($id_belanja)
@@ -168,16 +172,22 @@ class C_belanja extends CI_Controller
 
         foreach ($data as $ba) { 
             
-            $a = number_format(($ba->realisasi / $ba->target) * 100); ?>
+            $a = number_format(($ba->realisasi / $ba->target) * 100); 
+            $b = number_format(($ba->realisasi_fisik / $ba->target_fisik) * 100); ?>
             <tr>
 
                 <td><?= $ba->no_rek; ?></td>
                                 <td><?= $ba->rincian; ?></td>
                                 <td>Rp.<?= number_format($ba->pagu,2); ?></td>
                                 <td>Rp.<?= number_format($ba->npd,2) ?></td>
-                                <td>Rp.<?= number_format($ba->realisasi,2) ?></td>
-                                <td><?= $a; ?>%</td>
                                 <td>Rp.<?= number_format($ba->target,2) ?></td>
+                                <td><?= number_format($ba->target_fisik) ?></td>
+                                <td>Rp.<?= number_format($ba->realisasi,2) ?></td>
+                                <td><?= number_format($ba->realisasi_fisik) ?></td>
+                                <td><?= $ba->id_bulan; ?></td>
+                                <td><?= $a; ?>%</td>
+                                <td><?= $b; ?>%</td>
+                                
                 <td>
               <?php if ($ba->username == $username OR $status == 2) {?> 
               <button 

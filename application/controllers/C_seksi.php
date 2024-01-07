@@ -19,6 +19,7 @@ class C_seksi extends CI_Controller
     {
 
         $data  = array(
+			'session_user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row(),
 			
             'title' => 'seksi',
             'value' => $this->M_header->get_header($id_anggaran),

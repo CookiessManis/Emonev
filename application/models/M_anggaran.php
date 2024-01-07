@@ -75,4 +75,12 @@ class M_anggaran extends CI_Model
         $this->db->where('id_program', $data['id_program']);
         $this->db->delete('program', $data);
     }
+
+	public function is_program_exists($program_kerja)
+{
+    $this->db->where('program_kerja', $program_kerja);
+    $query = $this->db->get('program');
+
+    return $query->num_rows() > 0;
+}
 }

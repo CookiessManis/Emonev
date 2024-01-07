@@ -47,6 +47,9 @@
           <li class="nav-item px-2">
             <a class="nav-link" href="<?php echo base_url('index.php/C_seksi/index/'.$value->id_anggaran) ?>">Seksi</a>
           </li>
+					<li class="nav-item dropdown px-2">
+           <span class="nav-link">( <?= $session_user->username ?>)</span>
+          </li>
         </ul>
         
         <!-- end navbar -->
@@ -64,12 +67,12 @@
             <ul class="dropdown-menu">
 
               <li>
-							 <p
+							 <span
                   onclick="location.href='<?php echo base_url('index.php/C_login/logout')?>'"
                   class="dropdown-item-text dropdown-start"
                 >
                   Logout
-                </p>	
+</span>	
 							</li>
             </ul>
           </div>

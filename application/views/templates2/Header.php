@@ -34,8 +34,11 @@
           <li class="nav-item dropdown px-2">
             <a class="nav-link" href="<?php echo base_url('index.php/C_anggaran') ?>"> Anggaran </a>
           </li>
-         
+					<li class="nav-item dropdown px-2">
+           <span class="nav-link">( <?= $session_user->username ?>)</span>
+          </li>
         </ul>
+       
         
         <!-- end navbar -->
 
@@ -49,8 +52,8 @@
               class="profile-icon"
               alt=""
             />
-            <ul class="dropdown-menu">
-              <li>
+            <ul class="dropdown-menu ">
+              <li >
 							 <p
                   onclick="location.href='<?php echo base_url('index.php/C_login/logout')?>'"
                   class="dropdown-item-text dropdown-start"

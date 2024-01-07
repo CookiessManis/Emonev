@@ -100,4 +100,22 @@ public function get_total_realisasi($id_anggaran)
         return $this->db->get()->row();
     }
 
+	public function get_sub_kegiatan($id_kegiatan) 
+{
+    $this->db->select('*');
+    $this->db->from('kegiatan');
+    $this->db->where('kegiatan.id_kegiatan', $id_kegiatan);
+    return $this->db->get()->row();
+}
+
+
+public function getRealisasiSumByIdAng() {
+        $this->db->select('id_ang,id_anggaran, SUM(realisasi) as total_realisasi');
+		 $this->db->distinct();
+        $this->db->from('belanja');
+        $this->db->group_by('id_ang');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }

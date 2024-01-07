@@ -122,13 +122,13 @@ class C_anggaran extends CI_Controller
 
     }
 
-
-
-
-
-
     public function insert_program()
-    {
+{
+    $this->form_validation->set_rules('program_kerja', 'Program Kerja', 'required|is_unique[program.program_kerja]', array(
+        'is_unique' => 'Data Program Kerja tidak boleh sama'
+    ));
+
+    if ($this->form_validation->run() != false) {
         $program_kerja = $this->input->post('program_kerja');
         $id_anggaran = $this->input->post('id_anggaran');
 
@@ -136,10 +136,28 @@ class C_anggaran extends CI_Controller
             'program_kerja' => $program_kerja,
             'id_anggaran' => $id_anggaran,
         );
-        $this->M_anggaran->insert_program($data);
-        $this->session->set_flashdata('pesan', 'data program berhasil di tambahkan');
+
+        // Memeriksa apakah data sudah ada sebelumnya
+        if (!$this->is_program_exists($program_kerja)) {
+            $this->M_anggaran->insert_program($data);
+            $this->session->set_flashdata('pesan', 'Data program berhasil ditambahkan');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set_flashdata('error', 'Data program sudah ada sebelumnya');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    } else {
+        $this->session->set_flashdata('error', 'Data program gagal ditambahkan');
         redirect($_SERVER['HTTP_REFERER']);
     }
+}
+
+// Fungsi untuk memeriksa apakah program sudah ada sebelumnya
+private function is_program_exists($program_kerja)
+{
+    return $this->M_anggaran->is_program_exists($program_kerja);
+}
+
 
     public function update_program()
     {

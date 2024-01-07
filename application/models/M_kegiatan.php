@@ -43,4 +43,22 @@ class M_kegiatan extends CI_Model
         $this->db->delete('kegiatan', $data);
         $this->db->delete('belanja', $data);
     }
+
+	public function get_dashboard_row($id_anggaran)
+    {
+        $this->db->select('anggaran.jumlah');
+        $this->db->from('anggaran');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        return $this->db->get()->row();
+    }
+
+	public function realisasi($id_anggaran)
+	{
+		$this->db->select_sum('realisasi');
+		$this->db->from('anggaran');
+        $this->db->join('kegiatan', 'kegiatan.id_anggaran = anggaran.id_anggaran');
+        $this->db->join('belanja', 'belanja.id_kegiatan = kegiatan.id_kegiatan');
+        $this->db->where('anggaran.id_anggaran', $id_anggaran);
+        return $this->db->get('')->row();
+	}
 }

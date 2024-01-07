@@ -13,10 +13,6 @@ $tes_anggaran -= $value->total_realisasi;
 	$arr_anggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->jumlah, 'formatted_date' => $formatted_date];
 	$arr_realisasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $value->total_realisasi, 'formatted_date' => $formatted_date];
 	$arr_devisiasi[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $deviasi, 'formatted_date' => $formatted_date];
-  
-
-   
-    var_dump($tes_anggaran);
 	$arr_sisaAnggaran[] = ['x' => "new Date($value->tahun, $value->id_bulan - 1)", 'y' => $tes_anggaran, 'formatted_date' => $formatted_date];
 
 }
@@ -61,7 +57,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
               type: "splineArea",
               showInLegend: true,
               name: "Anggaran",
-              yValueFormatString: "$#,##0",
+              yValueFormatString: "Rp#,##0",
               xValueFormatString: "MMM YYYY",
               dataPoints: [
                 
@@ -75,7 +71,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
               type: "splineArea",
               showInLegend: true,
               name: "Realisasi",
-              yValueFormatString: "$#,##0",
+              yValueFormatString: "Rp#,##0",
               dataPoints: [
                
 								 <?php foreach ($arr_realisasi as $data): ?>
@@ -88,7 +84,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
               type: "splineArea",
               showInLegend: true,
               name: "Deviasi",
-              yValueFormatString: "$#,##0",
+              yValueFormatString: "Rp#,##0",
               dataPoints: [
                 
 								<?php foreach ($arr_devisiasi as $data): ?>
@@ -100,7 +96,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
             {
               type: "splineArea",
               showInLegend: true,
-              yValueFormatString: "$#,##0",
+              yValueFormatString: "Rp#,##0",
               name: "Sisa Anggaran",
               dataPoints: [
                 
@@ -129,16 +125,23 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
 								</option>
 								<?php } ?>
 							</select>
+              <select class="form-select border border-black" id="bulan">
+                  <option class="text-center">pilih bulan</option>
+                  <?php foreach ($bulan as $b) { ?>
+                    <option value="<?= $b->id_bulan; ?>"><?= $b->nama_bulan; ?></option>
+                 <?php  } ?>
+                </select>
           </div>
         </div>
       </div>
     </div>
       <!-- Card -->
+  <div id="belanja">
     <div class="card-container container-fluid">
-      <div class="row mx-auto mx-xl-auto mx-xxl-auto ps-xxl-5">
-        <div class="col-lg-3 col-xl-3">
+      <div class="row mx-auto mx-xl-auto mx-xxl-auto ps-xxl-5 gy-5">
+        <div class="col-lg-3 col-xl-3 ">
           <div class="card shadow">
-            <div class="card-body">
+            <div class="card-body ">
               <div class="card-text-container">
                 <div class="d-flex">
                   <p class="card-text fw-light">Anggaran</p>
@@ -192,6 +195,46 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                 >
                 
                 Rp. <?= number_format($jumlahrealisasi->realisasi,2) ?>
+                </p>
+                <?php } ?>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 col-xl-3">
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="card-text-container">
+                <div class="d-flex">
+                  <p class="card-text fw-light">target</p>
+                  <div class="card-icon ms-auto">
+                    <img src="<?= base_url('assets/img/icon-1.svg') ?>" alt="" />
+                  </div>
+                </div>
+
+                <?php 
+                if ($jumlahrealisasi->realisasi == null) { ?>
+                  <p
+                  class="card-text fw-bold"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Rp. 0.00"
+                >
+                Rp. 0.00
+                </p>
+                <?php }else{ ?>
+                
+
+                <p
+                  class="card-text fw-bold"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Rp. <?= number_format($jumlahtarget->target,2) ?>"
+                >
+                
+                Rp. <?= number_format($jumlahtarget->target,2) ?>
                 </p>
                 <?php } ?>
               </div>
@@ -253,7 +296,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                   data-bs-placement="bottom"
                   title="Rp. <?= number_format($dashboard_row->jumlah,2) ?>"
                 >
-                "Rp. <?= number_format($dashboard_row->jumlah,2) ?>"
+                Rp. <?= number_format($dashboard_row->jumlah,2) ?>
                 </p>
                 <?php }else{ ?>
 
@@ -265,7 +308,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
                   class="card-text fw-bold"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  title="Rp. <?= number_format($anggaran->latest_sisa_anggaran ,2) ?>"
+                  title="Rp. <?= number_format($tes_sisa ,2) ?>"
                 >
                   Rp <?= number_format($tes_sisa ,2) ?>
                 </p>
@@ -276,7 +319,7 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
         </div>
       </div>
     </div>
-
+    </div>
     <!-- chart -->
     <div class="chart-js">
       <div class="card-container container-fluid">
@@ -289,5 +332,30 @@ $realisasiValue = isset($realisasi->realisasi) ? (float)$realisasi->realisasi : 
         </div>
       </div>
     </div>
+
+  
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+        $("#bulan").change(function(){
+            belanja();
+        });
+    });
+
+    function belanja(){
+        var bulan = $("#bulan").val();
+        $.ajax({
+            <?php foreach($dashboard2 as $b ){ ?>
+                url: "<?= base_url('index.php/C_dashboard/load_bulan/' . $b->id_anggaran) ?>",
+           <?php  } ?>
+           data: "bulan=" + bulan,
+           success:function(data){
+            $("#belanja").html(data);
+          }
+      })
+    }
+</script>
+
 
 		

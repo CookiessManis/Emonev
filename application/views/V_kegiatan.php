@@ -363,6 +363,15 @@ echo '</span>
 			</h4>
 		</div>
 
+		 <?php $tes_sisa = $dashboard_row->jumlah - $realisasi->realisasi ?>
+								
+		<div class="px-5 pt-4 ">
+			<h4 class='seksi fw-bold align-middle' >
+				Sisa Anggaran : Rp.<?= number_format($tes_sisa,2) ?>
+			</h4>
+		</div>
+
+
     <!-- card table -->
     <div class="card-kegiatan-container">
       <div class="card card-kegiatan">
@@ -425,7 +434,7 @@ echo '</span>
               <tbody class="align-middle myTable" id="myTable">
               <?php foreach ($kegiatan as $k) { ?>
                 <tr class="text-center">
-									<?php if($k->username == $session_user->username) { ?>
+									<!-- <?php if($k->username == $session_user->username) { ?> -->
                   <!-- untuk ke halaman belanja ubah link di onklik -->
                   <td onclick="location.href='<?= base_url('index.php/C_belanja/index/'.$k->id_kegiatan) ?>'" class="td-pointer">
                     <?= $k->no_kegiatan; ?>
@@ -448,7 +457,7 @@ echo '</span>
                     >
                       Hapus
                     </button>
-										<?php } ?>
+										<!-- <?php } ?> -->
                   </td>
 
                  <?php }else{ ?>
